@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: '14.x'
 
       - name: Setup MSBuild.exe
         if: matrix.os == 'windows-latest'
@@ -48,14 +48,14 @@ jobs:
           echo ::set-output name=file_name::${NAME:8}
 
       - name: Store Build Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: build_dir
           path: ./release
 
       - name: Upload to GH Release
         if: github.event_name == 'release' && github.repository == 'VerumProject/Verum-GUI-Wallet'
-        uses: actions/upload-release-asset@v1.0.1
+        uses: actions/upload-release-asset@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
